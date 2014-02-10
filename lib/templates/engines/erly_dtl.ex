@@ -1,5 +1,5 @@
-defmodule Sugar.Templates.Engines.ErlyDTL do
-  @behaviour Sugar.Templates.Engine
+defmodule Templates.Engines.ErlyDTL do
+  @behaviour Templates.Engine
   @moduledoc """
   ErlyDTL template engine
   """

@@ -1,5 +1,5 @@
-defmodule Sugar.Templates.Engines.Calliope do
-  @behaviour Sugar.Templates.Engine
+defmodule Templates.Engines.Calliope do
+  @behaviour Templates.Engine
   @moduledoc """
   Calliope (HAML) template engine
   """
