@@ -8,9 +8,9 @@ defmodule Templates do
   end
 end
 
-defrecord Template,
+defrecord Templates.Template,
   key: nil,
-  filename: nil,
+  source: nil,
   engine: nil,
   updated_at: nil do
   @moduledoc """
@@ -18,26 +18,26 @@ defrecord Template,
   templates to be compiled and rendered. It contains:
 
   - `:key` - The key used to find the template
-  - `:filename` - The filename of the template
+  - `:source` - The source of the template
   - `:engine` - The template engine responsible for compiling the 
     template
   - `:updated_at` - The last time the template was updated
   """
 
   @type key        :: atom
-  @type filename   :: iodata
+  @type source     :: iodata
   @type engine     :: module
-  @type year       :: non_neg_integer
-  @type month      :: non_neg_integer
-  @type day        :: non_neg_integer
-  @type hour       :: non_neg_integer
-  @type minute     :: non_neg_integer
-  @type second     :: non_neg_integer
+  @type year       :: pos_integer
+  @type month      :: 1..12
+  @type day        :: 1..31
+  @type hour       :: 0..24
+  @type minute     :: 0..60
+  @type second     :: 0..60
   @type datetime   :: {{ year, month, day }, { hour, minute, second }}
   @type updated_at :: datetime
 
   record_type key: key,
-              filename: filename,
+              source: source,
               engine: engine,
               updated_at: updated_at
 end

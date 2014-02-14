@@ -5,16 +5,21 @@ defmodule Templates.Engine do
   """
   use Behaviour
 
-  @type template :: Template.t
-  @type vars :: list | Keyword.t
+  @type template :: Templates.Template.t
+  @type reason   :: String.t
+  @type vars     :: list | Keyword.t
 
   @doc """
   Compiles a `template`.
+
+  It is advised that an engine implementation removes the tremplate
+  source from the record if it is not needed after compilation but
+  retain it if needed for rendering.
   """
-  defcallback compile(record) :: :ok
+  defcallback compile(template) :: {:ok, template} | {:error, reason}
 
   @doc """
   Renders a compiled template based on the given `template` record.
   """
-  defcallback render(record, vars) :: {:ok, iodata}
+  defcallback render(template, vars) :: {:ok, iodata}
 end
