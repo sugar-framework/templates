@@ -8,12 +8,19 @@ defmodule Templates.Engines.ErlyDTL do
 
   ## Callbacks
 
+  def compile(templates) when is_list(templates) do
+    Enum.map templates, &compile(&1)
+  end
   def compile(template) do
-    :erlydtl.compile(String.to_char_list!(template.filename), binary_to_atom(template.key), [out_dir: "./ebin"])
+    :erlydtl.compile(template.source, binary_to_atom("Templates.CompiledTemplates.ErlyDTL." <> template.key), [out_dir: "./ebin"])
   end
 
   def render(template, vars) do
-    {:ok, tpl} = apply(binary_to_atom(template.key), :render, [vars])
-    {:ok, String.from_char_list!(tpl)}
+    case apply(binary_to_atom("Templates.CompiledTemplates.ErlyDTL." <> template.key), :render, [vars]) do
+      {:ok, tpl} -> 
+        {:ok, String.from_char_list!(tpl)}
+      {:error, reason} -> 
+        {:error, reason}
+    end
   end
 end

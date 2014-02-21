@@ -5,7 +5,7 @@ defmodule Templates.Mixfile do
     [ app: :templates,
       version: "0.0.1",
       elixir: "~> 0.12.3",
-      deps: deps ]
+      deps: deps(Mix.env) ]
   end
 
   # Configuration for the OTP application
@@ -18,7 +18,21 @@ defmodule Templates.Mixfile do
   #
   # To specify particular versions, regardless of the tag, do:
   # { :barbat, "~> 0.1", github: "elixir-lang/barbat" }
-  defp deps do
-    []
+  defp deps(:prod) do
+    [
+      { :erlydtl, github: "erlydtl/erlydtl" },
+      { :calliope, github: "nurugger07/calliope" }
+    ]
+  end
+
+  defp deps(:docs) do
+    deps(:prod) ++
+      [ 
+        { :ex_doc, github: "elixir-lang/ex_doc" } 
+      ]
+  end
+
+  defp deps(_) do
+    deps(:prod)
   end
 end
