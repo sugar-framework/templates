@@ -1,3 +1,0 @@
-[ "calliope": {:git, "git://github.com/nurugger07/calliope.git", "f95603fbdace72c316ad1ce3fe62fb2c00e5881f", []},
-  "erlydtl": {:git, "git://github.com/erlydtl/erlydtl.git", "ca93672ec889187a0597caddf0d156ed744b16c3", []},
-  "ex_doc": {:git, "git://github.com/elixir-lang/ex_doc.git", "ee01fe3efd7b8af1dbaa00946bad5817d57b5875", []} ]

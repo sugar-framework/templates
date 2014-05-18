@@ -1,19 +1,18 @@
 defmodule Templates.Engines.Calliope do
-  @behaviour Templates.Engine
   @moduledoc """
   Calliope (HAML) template engine
   """
 
+  @behaviour Templates.Engine
+
   ## Callbacks
 
-  def compile(_name) do
-    :ok
+  def compile(template) do
+    { :ok, template }
   end
 
-  def render(name, vars) do
-    path = Path.expand('lib/views/#{name}.haml')
-    haml = File.read! path
-    body = Calliope.Render.render haml, vars
-    {:ok, body}
+  def render(template, vars) do
+    body = Calliope.Render.render template.source, vars
+    { :ok, body }
   end
 end

@@ -1,43 +1,66 @@
 defmodule Templates do
   use Application.Behaviour
 
+  @name :compile_server
+
   # See http://elixir-lang.org/docs/stable/Application.Behaviour.html
   # for more information on OTP Applications
   def start(_type, _args) do
     Templates.Supervisor.start_link
   end
-end
 
-defrecord Templates.Template,
-  key: nil,
-  source: nil,
-  engine: nil,
-  updated_at: nil do
-  @moduledoc """
-  The template record is responsible to keep information about
-  templates to be compiled and rendered. It contains:
-
-  - `:key` - The key used to find the template
-  - `:source` - The source of the template
-  - `:engine` - The template engine responsible for compiling the 
-    template
-  - `:updated_at` - The last time the template was updated
+  @doc """
+  Compiles a single template or a list of templates.
   """
+  def compile(templates) when is_list(templates) do
+    Enum.map templates, &compile(&1)
+  end
+  def compile(%Templates.Template{} = template) do
+    key = template.key |> String.replace("/", "_")
+    current = get_template key
 
-  @type key        :: atom
-  @type source     :: iodata
-  @type engine     :: module
-  @type year       :: pos_integer
-  @type month      :: 1..12
-  @type day        :: 1..31
-  @type hour       :: 0..24
-  @type minute     :: 0..60
-  @type second     :: 0..60
-  @type datetime   :: {{ year, month, day }, { hour, minute, second }}
-  @type updated_at :: datetime
+    if current == nil || current.updated_at < template.updated_at do
+      # :gen_server.cast(@name, { :compile, %{ template | key: key } })
+      template.engine.compile(%{ template | key: key })
+    else
+      :ok
+    end
+  end
 
-  record_type key: key,
-              source: source,
-              engine: engine,
-              updated_at: updated_at
+  @doc """
+  Gets all stored structs of compiled templates via a GenServer cast.
+  """
+  def get_all_templates do
+    {:ok, templates} = :gen_server.call(@name, :get_templates)
+    templates
+  end
+
+  @doc """
+  Gets a template from a stored map of structs of compiled templates.
+  """
+  def get_template(key) do
+    get_all_templates
+      |> Map.get(key)
+  end
+
+  @doc """
+  Puts a template into a stored map of structs of compiled templates via a GenServer cast.
+  """
+  def put_template(template) do
+    :gen_server.cast(@name, { :put_template, template })
+  end
+
+  def render(%Templates.Template{} = template, assigns) do
+    { :ok, html } = template.engine.render template, assigns
+    IO.inspect html
+    html
+  end
+  def render(key, assigns) do
+    template = key
+      |> String.replace("/", "_")
+      |> get_template
+    { :ok, html } = template.engine.render template, assigns
+
+    html
+  end
 end

@@ -1,24 +1,32 @@
 defmodule Templates.Engines.EEx do
   require EEx
-  @behaviour Templates.Engine
   @moduledoc """
   EEx template engine
   """
 
-  @extensions ["eex"]
+  @behaviour Templates.Engine
 
   ## Callbacks
 
-  # def compile(templates) when is_list(templates) do
-  #   Enum.map templates, &compile(&1)
-  # end
   def compile(template) do
-    # EEx.function_from_string binary_to_atom("Templates.CompiledTemplates.ErlyDTL." <> template.key), template.source, [:assigns]
-    :ok
+    name = Module.concat([Templates.CompiledTemplates.EEx, template.key])
+    info = [file: __ENV__.file, line: __ENV__.line, engine: EEx.SmartEngine]
+    args = Enum.map [:assigns], fn arg -> { arg, [line: info[:line]], nil } end
+    compiled = EEx.compile_string(template.source, info)
+    contents = quote do
+      def(render(unquote_splicing(args)), do: unquote(compiled))
+    end
+
+    case name |> Module.create(contents) do
+      { :module, ^name, _, _ } ->
+        template = %{ template | source: nil }
+        { :ok, template }
+      _ ->
+        { :error, "Could not create \"#{name}\"" }
+    end
   end
 
-  def render(template, vars) do
-    # {:ok, apply(__MODULE__, binary_to_atom("Templates.CompiledTemplates.ErlyDTL." <> template.key), [vars])}
-    { :ok, Path.expand(template) |> File.read! |> EEx.eval_string(vars)}
+  def render(key, vars) do
+    { :ok, apply(Module.concat([Templates.CompiledTemplates.EEx, key]), :render, [vars]) }
   end
 end
