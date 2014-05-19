@@ -26,7 +26,8 @@ defmodule Templates.Engines.EEx do
     end
   end
 
-  def render(key, vars) do
-    { :ok, apply(Module.concat([Templates.CompiledTemplates.EEx, key]), :render, [vars]) }
+  def render(template, vars) do
+    name = Module.concat([Templates.CompiledTemplates.EEx, template.key])
+    { :ok, apply(name, :render, [vars]) }
   end
 end

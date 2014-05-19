@@ -20,8 +20,9 @@ defmodule Templates do
     current = get_template key
 
     if current == nil || current.updated_at < template.updated_at do
-      # :gen_server.cast(@name, { :compile, %{ template | key: key } })
-      template.engine.compile(%{ template | key: key })
+      IO.puts "Compiling #{key}..."
+      :gen_server.cast(@name, { :compile, %{ template | key: key } })
+      # template.engine.compile(%{ template | key: key })
     else
       :ok
     end
@@ -52,7 +53,6 @@ defmodule Templates do
 
   def render(%Templates.Template{} = template, assigns) do
     { :ok, html } = template.engine.render template, assigns
-    IO.inspect html
     html
   end
   def render(key, assigns) do

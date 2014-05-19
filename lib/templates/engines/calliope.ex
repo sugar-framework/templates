@@ -12,7 +12,7 @@ defmodule Templates.Engines.Calliope do
   end
 
   def render(template, vars) do
-    body = Calliope.Render.render template.source, vars
+    body = Calliope.render template.source, vars
     { :ok, body }
   end
 end

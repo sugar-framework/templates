@@ -10,7 +10,7 @@ defmodule Templates.Engines.ErlyDTL do
   def compile(template) do
     name = Module.concat([Templates.CompiledTemplates.ErlyDTL, template.key])
 
-    case :erlydtl.compile_template(template.source, name, [out_dir: './_build']) do
+    case :erlydtl.compile_template(template.source, name, [out_dir: './_build/dev/lib/templates/ebin']) do
       { :ok, ^name } ->
         template = %{ template | source: nil }
         { :ok, template }
@@ -22,7 +22,7 @@ defmodule Templates.Engines.ErlyDTL do
   def render(template, vars) do
     case apply(Module.concat([Templates.CompiledTemplates.ErlyDTL, template.key]), :render, [vars]) do
       { :ok, tpl } ->
-        { :ok, String.from_char_list!(tpl) }
+        { :ok, String.from_char_data!(tpl) }
       { :error, reason } ->
         { :error, reason }
     end
