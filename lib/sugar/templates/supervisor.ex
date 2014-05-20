@@ -1,4 +1,4 @@
-defmodule Templates.Supervisor do
+defmodule Sugar.Templates.Supervisor do
   use Supervisor.Behaviour
 
   def start_link do
@@ -7,7 +7,7 @@ defmodule Templates.Supervisor do
 
   def init([]) do
     children = [
-      worker(Templates.Compiler, [])
+      worker(Sugar.Templates.Compiler, [])
     ]
 
     supervise(children, strategy: :one_for_one)

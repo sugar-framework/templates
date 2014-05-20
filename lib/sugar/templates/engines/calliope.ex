@@ -1,9 +1,9 @@
-defmodule Templates.Engines.Calliope do
+defmodule Sugar.Templates.Engines.Calliope do
   @moduledoc """
   Calliope (HAML) template engine
   """
 
-  @behaviour Templates.Engine
+  @behaviour Sugar.Templates.Engine
 
   ## Callbacks
 

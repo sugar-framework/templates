@@ -1,11 +1,11 @@
-defmodule Templates.Engine do
+defmodule Sugar.Templates.Engine do
   @moduledoc """
   Specification of the template engine API implemented
   by individual template engines.
   """
   use Behaviour
 
-  @type template :: Templates.Template.t
+  @type template :: Sugar.Templates.Template.t
   @type reason   :: String.t
   @type vars     :: list | Keyword.t
 

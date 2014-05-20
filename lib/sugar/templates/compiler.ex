@@ -1,4 +1,4 @@
-defmodule Templates.Compiler do
+defmodule Sugar.Templates.Compiler do
   use GenServer.Behaviour
 
   @name :compile_server
@@ -42,16 +42,16 @@ defmodule Templates.Compiler do
   @doc """
   add/update a template to the GenServer state
   """
-  def handle_cast({:put_template, %Templates.Template{} = template}, templates) do
+  def handle_cast({:put_template, %Sugar.Templates.Template{} = template}, templates) do
     { :noreply, templates |> Map.put(template.key, template) }
   end
 
   @doc """
   compile a template via its corresponding engine
   """
-  def handle_cast({:compile, %Templates.Template{engine: engine} = template}, templates) do
+  def handle_cast({:compile, %Sugar.Templates.Template{engine: engine} = template}, templates) do
     case engine.compile(template) do
-      { :ok, template } -> Templates.put_template(template)
+      { :ok, template } -> Sugar.Templates.put_template(template)
       { :error, _ } -> :ok
     end
     { :noreply, templates }

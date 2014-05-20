@@ -1,4 +1,4 @@
-defmodule Templates.Template do
+defmodule Sugar.Templates.Template do
   @moduledoc """
   The template record is responsible to keep information about
   templates to be compiled and rendered. It contains:
