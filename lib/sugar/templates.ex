@@ -13,7 +13,6 @@ defmodule Sugar.Templates do
 
     if current == nil || current.updated_at < template.updated_at do
       :gen_server.cast(@name, { :compile, %{ template | key: key } })
-      # template.engine.compile(%{ template | key: key })
     else
       :ok
     end

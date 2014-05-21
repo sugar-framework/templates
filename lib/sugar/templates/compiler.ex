@@ -39,6 +39,11 @@ defmodule Sugar.Templates.Compiler do
     { :reply, {:ok, templates}, templates }
   end
 
+  @doc false
+  def handle_call(:stop, _from, state) do
+    {:stop, :normal, :shutdown_ok, state}
+  end
+
   @doc """
   add/update a template to the GenServer state
   """

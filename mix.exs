@@ -5,7 +5,7 @@ defmodule Templates.Mixfile do
     [ app: :templates,
       version: "0.0.2-dev",
       elixir: ">= 0.13.0",
-      name: "Sugar",
+      name: "Templates",
       deps: deps(Mix.env),
       package: package,
       description: description,
