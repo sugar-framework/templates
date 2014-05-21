@@ -18,8 +18,9 @@ defmodule Sugar.Templates.Engines.EEx do
     end
 
     case name |> Module.create(contents) do
-      { :module, ^name, _, _ } ->
+      { :module, ^name, binary, _ } ->
         template = %{ template | source: nil }
+        template = %{ template | binary: binary }
         { :ok, template }
       _ ->
         { :error, "Could not create \"#{name}\"" }

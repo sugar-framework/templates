@@ -5,7 +5,12 @@ defmodule Templates.Mixfile do
     [ app: :templates,
       version: "0.0.2-dev",
       elixir: ">= 0.13.0",
-      deps: deps(Mix.env) ]
+      name: "Sugar",
+      deps: deps(Mix.env),
+      package: package,
+      description: description,
+      docs: [readme: true, main: "README"],
+      test_coverage: [tool: ExCoveralls] ]
   end
 
   # Configuration for the OTP application
@@ -25,6 +30,20 @@ defmodule Templates.Mixfile do
   end
 
   defp deps(_) do
-    deps(:prod)
+    deps(:prod) ++
+      [ { :excoveralls, "0.2.0" } ]
+  end
+
+  defp description do
+    """
+    Modular web framework
+    """
+  end
+
+  defp package do
+    %{contributors: ["Shane Logsdon"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/sugar-framework/templates",
+               "Docs" => "http://sugar-framework.github.io/docs/api/templates/"}}
   end
 end

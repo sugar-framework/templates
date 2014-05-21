@@ -12,6 +12,7 @@ defmodule Sugar.Templates.Template do
 
   defstruct key: nil,
             source: nil,
+            binary: nil,
             engine: nil,
             updated_at: nil
 end

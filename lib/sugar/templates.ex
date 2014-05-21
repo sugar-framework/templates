@@ -12,7 +12,6 @@ defmodule Sugar.Templates do
     current = get_template key
 
     if current == nil || current.updated_at < template.updated_at do
-      IO.puts "Compiling #{key}..."
       :gen_server.cast(@name, { :compile, %{ template | key: key } })
       # template.engine.compile(%{ template | key: key })
     else
