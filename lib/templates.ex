@@ -1,5 +1,5 @@
 defmodule Templates do
-  use Application.Behaviour
+  use Application
 
   @name :compile_server
 

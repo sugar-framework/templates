@@ -17,7 +17,7 @@ defmodule Sugar.Templates.Engines.EEx do
       def(render(unquote_splicing(args)), do: unquote(compiled))
     end
 
-    case name |> Module.create(contents) do
+    case name |> Module.create(contents, info) do
       { :module, ^name, binary, _ } ->
         template = %{ template | source: nil }
         template = %{ template | binary: binary }

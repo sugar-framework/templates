@@ -4,7 +4,7 @@ defmodule Templates.Mixfile do
   def project do
     [ app: :templates,
       version: "0.0.2-dev",
-      elixir: ">= 0.13.0",
+      elixir: "~> 1.0.0-rc1",
       name: "Templates",
       deps: deps(Mix.env),
       package: package,
@@ -21,17 +21,17 @@ defmodule Templates.Mixfile do
 
   defp deps(:prod) do
     [ { :erlydtl, github: "erlydtl/erlydtl", tag: "0.9.4" },
-      { :calliope, github: "nurugger07/calliope" } ]
+      { :calliope, "~> 0.2.5" } ]
   end
 
   defp deps(:docs) do
     deps(:prod) ++
-      [ { :ex_doc, github: "elixir-lang/ex_doc" } ]
+      [ { :ex_doc, "~> 0.6.0" } ]
   end
 
   defp deps(_) do
     deps(:prod) ++
-      [ { :excoveralls, "0.2.0" } ]
+      [ { :excoveralls, github: "parroty/excoveralls" } ]
   end
 
   defp description do

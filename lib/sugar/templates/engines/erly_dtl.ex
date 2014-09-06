@@ -22,7 +22,7 @@ defmodule Sugar.Templates.Engines.ErlyDTL do
   def render(template, vars) do
     case apply(Module.concat([Sugar.Templates.CompiledTemplates.ErlyDTL, template.key]), :render, [vars]) do
       { :ok, tpl } ->
-        { :ok, String.from_char_data!(tpl) }
+        { :ok, Enum.join(tpl, "") }
       { :error, reason } ->
         { :error, reason }
     end

@@ -1,5 +1,5 @@
 defmodule Sugar.Templates.Compiler do
-  use GenServer.Behaviour
+  use GenServer
 
   @name :compile_server
 
