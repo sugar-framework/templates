@@ -12,7 +12,7 @@ notifications:
 before_install:
   - git clone https://github.com/elixir-lang/elixir
   - cd elixir
-  - git checkout tags/v1.0.0-rc1
+  - git checkout tags/v1.0.0
   - make
   - cd ..
 before_script:
