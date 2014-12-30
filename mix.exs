@@ -3,40 +3,33 @@ defmodule Templates.Mixfile do
 
   def project do
     [ app: :templates,
-      version: "0.0.2-dev",
-      elixir: "~> 1.0.0-rc1",
+      version: "0.0.2",
+      elixir: "~> 1.0.0",
       name: "Templates",
-      deps: deps(Mix.env),
+      deps: deps,
       package: package,
       description: description,
-      docs: [readme: true, main: "README"],
+      docs: [readme: "README.md", main: "README"],
       test_coverage: [tool: ExCoveralls] ]
   end
 
   # Configuration for the OTP application
   def application do
-    [ application: [:templates],
+    [ application: [:templates, :erlydtl, :calliope],
       mod: { Templates, [] } ]
   end
 
-  defp deps(:prod) do
+  defp deps do
     [ { :erlydtl, github: "erlydtl/erlydtl", tag: "0.9.4" },
-      { :calliope, "~> 0.2.5" } ]
-  end
-
-  defp deps(:docs) do
-    deps(:prod) ++
-      [ { :ex_doc, "~> 0.6.0" } ]
-  end
-
-  defp deps(_) do
-    deps(:prod) ++
-      [ { :excoveralls, "~> 0.3" } ]
+      { :calliope, "~> 0.2.5" },
+      { :ex_doc, "~> 0.6.0", only: :docs },
+      { :earmark, "~> 0.1.12", only: :docs },
+      { :excoveralls, "~> 0.3", only: :test } ]
   end
 
   defp description do
     """
-    Modular web framework
+    A helper library for adding templating to web applications
     """
   end
 
