@@ -29,6 +29,9 @@ defmodule Sugar.Templates.Engines.EEx do
 
   def render(template, vars) do
     name = Module.concat([Sugar.Templates.CompiledTemplates.EEx, template.key])
+    if not Code.ensure_loaded?(name) do
+      compile(template)
+    end
     { :ok, apply(name, :render, [vars]) }
   end
 end

@@ -3,7 +3,7 @@ defmodule Templates.Mixfile do
 
   def project do
     [ app: :templates,
-      version: "0.0.3",
+      version: "0.0.4",
       elixir: "~> 1.0.0",
       name: "Templates",
       deps: deps,
