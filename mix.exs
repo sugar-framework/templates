@@ -3,7 +3,7 @@ defmodule Templates.Mixfile do
 
   def project do
     [ app: :templates,
-      version: "0.0.2",
+      version: "0.0.3",
       elixir: "~> 1.0.0",
       name: "Templates",
       deps: deps,
@@ -20,8 +20,7 @@ defmodule Templates.Mixfile do
   end
 
   defp deps do
-    [ { :erlydtl, github: "erlydtl/erlydtl", tag: "0.9.4" },
-      { :calliope, "~> 0.2.5" },
+    [ { :calliope, "~> 0.2.5" },
       { :ex_doc, "~> 0.6.0", only: :docs },
       { :earmark, "~> 0.1.12", only: :docs },
       { :excoveralls, "~> 0.3", only: :test } ]
