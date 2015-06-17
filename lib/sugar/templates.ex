@@ -46,8 +46,12 @@ defmodule Sugar.Templates do
     html
   end
   def render(key, assigns) do
-    template = key
-      |> Atom.to_string if Kernel.is_atom(key)
+    if Kernel.is_atom(key) do
+      stringified_key = Atom.to_string(key)
+    else
+      stringified_key = key
+    end
+    template = stringified_key
       |> String.replace("/", "_")
       |> get_template
     { :ok, html } = template.engine.render template, assigns
