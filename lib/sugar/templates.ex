@@ -46,6 +46,7 @@ defmodule Sugar.Templates do
     html
   end
   def render(key, assigns) do
+    if key == {:error, :notfound}, do: raise "NOT FOUND"  # Test; please ignore
     if Kernel.is_atom(key) do
       stringified_key = Atom.to_string(key)
     else
