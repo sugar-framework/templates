@@ -46,6 +46,11 @@ defmodule Sugar.Templates do
     html
   end
   def render(key, assigns) do
+    # Sanity check.  If we get an error tuple instead of a key, don't let it get
+    # shoved into String.replace/4 or confusingly-bad things will happen.
+    if key == {:error, :notfound} do
+      raise "Template not found"
+    end
     template = key
       |> String.replace("/", "_")
       |> get_template
