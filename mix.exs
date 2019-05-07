@@ -4,11 +4,11 @@ defmodule Templates.Mixfile do
   def project do
     [ app: :templates,
       version: "0.0.6",
-      elixir: "~> 1.0.0",
+      elixir: "~> 1.0",
       name: "Templates",
-      deps: deps,
-      package: package,
-      description: description,
+      deps: deps(),
+      package: package(),
+      description: description(),
       docs: [readme: "README.md", main: "README"],
       test_coverage: [tool: ExCoveralls] ]
   end
