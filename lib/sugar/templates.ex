@@ -30,7 +30,7 @@ defmodule Sugar.Templates do
   Gets a template from a stored map of structs of compiled templates.
   """
   def get_template(key) do
-    get_all_templates
+    get_all_templates()
       |> Map.get(key)
   end
 
