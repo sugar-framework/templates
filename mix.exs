@@ -4,11 +4,11 @@ defmodule Templates.Mixfile do
   def project do
     [ app: :templates,
       version: "0.0.6",
-      elixir: "~> 1.0.0",
+      elixir: "~> 1.17.0",
       name: "Templates",
-      deps: deps,
-      package: package,
-      description: description,
+      deps: deps(),
+      package: package(),
+      description: description(),
       docs: [readme: "README.md", main: "README"],
       test_coverage: [tool: ExCoveralls] ]
   end
@@ -20,10 +20,12 @@ defmodule Templates.Mixfile do
   end
 
   defp deps do
-    [ { :calliope, "~> 0.3.0" },
-      { :ex_doc, "~> 0.7.2", only: :docs },
-      { :earmark, "~> 0.1.15", only: :docs },
-      { :excoveralls, "~> 0.3.10", only: :test } ]
+    [
+      {:calliope, "~> 0.4.0"},
+      {:ex_doc, "~> 0.7.2", only: :docs},
+      {:earmark, "~> 0.1.15", only: :docs},
+      {:excoveralls, "~> 0.18", only: :test}
+    ]
   end
 
   defp description do
